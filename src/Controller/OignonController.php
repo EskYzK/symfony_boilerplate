@@ -1,0 +1,24 @@
+<?php
+
+namespace App\Controller;
+
+use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
+use Symfony\Component\HttpFoundation\Response;
+use Symfony\Component\Routing\Attribute\Route;
+
+final class OignonController extends AbstractController
+{
+    #[Route('/oignon', name: 'app_oignon')]
+    public function index(): Response
+    {
+        return $this->render('oignon/index.html.twig', [
+            'controller_name' => 'OignonController',
+        ]);
+    }
+    public function findAll():Response
+    {
+        return $this->render('commentaire/findAll.html.twig', [
+            'controller_name' => 'CommentaireController',
+        ]);
+    }
+}
