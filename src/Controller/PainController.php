@@ -9,16 +9,17 @@ use Symfony\Component\Routing\Attribute\Route;
 final class PainController extends AbstractController
 {
     #[Route('/pain', name: 'app_pain')]
-    public function index(): Response
+    public function index(PainRepository $painRepository): Response
     {
+        $pains = $painRepository->findAll();
         return $this->render('pain/index.html.twig', [
             'controller_name' => 'PainController',
         ]);
     }
     public function findAll():Response
     {
-        return $this->render('commentaire/findAll.html.twig', [
-            'controller_name' => 'CommentaireController',
+        return $this->render('pain/findAll.html.twig', [
+            'controller_name' => 'PainController',
         ]);
     }
 }

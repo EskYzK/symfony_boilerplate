@@ -9,15 +9,16 @@ use Symfony\Component\Routing\Attribute\Route;
 final class SauceController extends AbstractController
 {
     #[Route('/sauce', name: 'app_sauce')]
-    public function index(): Response
+    public function index(SauceRepository $sauceRepository): Response
     {
+        $sauces = $sauceRepository->findAll();
         return $this->render('sauce/index.html.twig', [
             'controller_name' => 'SauceController',
         ]);
     }
     public function findAll():Response
     {
-        return $this->render('commentaire/findAll.html.twig', [
+        return $this->render('sauce/findAll.html.twig', [
             'controller_name' => 'SauceController',
         ]);
     }
