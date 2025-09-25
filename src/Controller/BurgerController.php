@@ -5,6 +5,7 @@ namespace App\Controller;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
+use App\Entity\Burger;
 
 #[Route('/burger', name: 'burger_')]
 class BurgerController extends AbstractController
@@ -76,6 +77,18 @@ class BurgerController extends AbstractController
         ]);
     }
 
+    #[Route('/burger/create', name: 'burger_create')]
+    public function create(EntityManagerInterface $entityManager): Response
+    {
+        $burger = new Burger();
+        $burger->setName('Krabby Patty');
+        $burger->setPrice(4.99);
+    
+        $entityManager->persist($burger);
+        $entityManager->flush();
+    
+        return new Response('Burger créé avec succès !');
+    }
     public function findAll():Response
     {
         return $this->render('burger/findAll.html.twig', [

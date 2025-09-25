@@ -5,6 +5,7 @@ namespace App\Controller;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Attribute\Route;
+use App\Entity\Controller;
 
 final class CommentaireController extends AbstractController
 {
@@ -15,6 +16,19 @@ final class CommentaireController extends AbstractController
         return $this->render('commentaire/index.html.twig', [
             'controller_name' => 'CommentaireController',
         ]);
+    }
+
+    #[Route('/commentaire/create', name: 'commentairee_create')]
+    public function create(EntityManagerInterface $entityManager): Response 
+    {
+        $commentaire = new commentaire();
+        $commentaire->setName('');
+        $commentaire->setDescription('');
+
+        $entityManager->persist($commentaire);
+        $entityManager->flush();
+
+        return new Response('Le commentaire a bien été écrit');
     }
 
     public function findAll():Response

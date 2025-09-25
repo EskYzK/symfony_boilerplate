@@ -5,6 +5,7 @@ namespace App\Controller;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Attribute\Route;
+use App\Entity\Pain;
 
 final class PainController extends AbstractController
 {
@@ -16,6 +17,20 @@ final class PainController extends AbstractController
             'controller_name' => 'PainController',
         ]);
     }
+
+    #[Route('/pain/create', name: 'pain_create')]
+    public function create(EntityManagerInterface $entityManager): Response 
+    {
+        $pain = new Pain();
+        $pain->setName('Pain aux graines');
+        $pain->setDescription('Un pain aux graines');
+
+        $entityManager->persist($pain);
+        $entityManager->flush();
+
+        return new Response('Le pain a bien été créé !');
+    }
+
     public function findAll():Response
     {
         return $this->render('pain/findAll.html.twig', [
