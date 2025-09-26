@@ -14,7 +14,7 @@ final class PainController extends AbstractController
     {
         $pains = $painRepository->findAll();
         return $this->render('pain/index.html.twig', [
-            'controller_name' => 'PainController',
+            'pain' =>$pains,
         ]);
     }
 
@@ -31,10 +31,4 @@ final class PainController extends AbstractController
         return new Response('Le pain a bien été créé !');
     }
 
-    public function findAll():Response
-    {
-        return $this->render('pain/findAll.html.twig', [
-            'controller_name' => 'PainController',
-        ]);
-    }
 }

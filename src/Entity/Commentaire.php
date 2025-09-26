@@ -14,10 +14,8 @@ class Commentaire
     private ?int $id = null;
 
     #[ORM\Column(length: 255)]
-    private ?string $url = null;
+    private ?string $commentaire = null;
 
-    #[ORM\Column(length: 255)]
-    private ?string $altText = null;
 
     public function getId(): ?int
     {
@@ -31,30 +29,31 @@ class Commentaire
         return $this;
     }
 
-    public function getUrl(): ?string
+    public function getCommentaire(): ?string
     {
-        return $this->url;
+        return $this->commentaire;
     }
 
-    public function setUrl(string $url): static
+    public function setCommentaire(string $commentaire): static
     {
-        $this->url = $url;
+        $this->commentaire = $commentaire;
 
         return $this;
     }
 
-    public function getAltText(): ?string
-    {
-        return $this->altText;
-    }
-
-    public function setAltText(string $altText): static
-    {
-        $this->altText = $altText;
-
-        return $this;
-    }
 
     #[ORM\ManyToOne(targetEntity: Burger::class)]
     private $burger;
+
+    public function getBurger(): ?Burger
+    {
+        return $this->burger;
+    }
+
+    public function setBurger(Burger $burger): static
+    {
+        $this->burger = $burger;
+
+        return $this;
+    }
 }

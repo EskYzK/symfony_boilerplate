@@ -14,7 +14,7 @@ final class CommentaireController extends AbstractController
     {
         $commentaires = $commentaireRepository->findAll();
         return $this->render('commentaire/index.html.twig', [
-            'controller_name' => 'CommentaireController',
+            'commentaires' => $commentaires,
         ]);
     }
 
@@ -22,9 +22,10 @@ final class CommentaireController extends AbstractController
     public function create(EntityManagerInterface $entityManager): Response 
     {
         $commentaire = new commentaire();
-        $commentaire->setName('');
-        $commentaire->setDescription('');
-
+        $commentaire->setName("MMMMMMMMMMMMH J'AI PLEURE SUR LE POULET");
+        $commentaire->setDescription("C'était juste divin, j'ai pas les mots, c'est comme manger le Soleil ! C'était hot mais délicieux !");
+        $commentaire->setBurger($burger);
+        
         $entityManager->persist($commentaire);
         $entityManager->flush();
 

@@ -31,7 +31,7 @@ class BurgerController extends AbstractController
             ],
         ];
  
-        return $this->render('burger/liste_burger.html.twig', [
+        return $this->render('burger/burgers_list.html.twig', [
             'burgers' => $burgers,
         ]);
     }

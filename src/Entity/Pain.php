@@ -8,50 +8,34 @@ use Doctrine\ORM\Mapping as ORM;
 #[ORM\Entity(repositoryClass: PainRepository::class)]
 class Pain
 {
-    #[ORM\Id]
-    #[ORM\GeneratedValue]
-    #[ORM\Column]
-    private ?int $id = null;
+    #[ORM\Column(length: 255)]
+    private ?string $name = null;
 
     #[ORM\Column(length: 255)]
-    private ?string $url = null;
+    private ?string $description = null;
 
-    #[ORM\Column(length: 255)]
-    private ?string $altText = null;
-
-    public function getId(): ?int
+    public function getName(): ?string
     {
-        return $this->id;
+        return $this->name;
     }
 
-    public function setId(int $id): static
+    public function setName(string $name): static
     {
-        $this->id = $id;
+        $this->name = $name;
 
         return $this;
     }
 
-    public function getUrl(): ?string
+    public function getDescription(): ?string
     {
-        return $this->url;
+        return $this->description;
     }
 
-    public function setUrl(string $url): static
+    public function setDescription(string $description): static
     {
-        $this->url = $url;
+        $this->description = $description;
 
         return $this;
     }
-
-    public function getAltText(): ?string
-    {
-        return $this->altText;
-    }
-
-    public function setAltText(string $altText): static
-    {
-        $this->altText = $altText;
-
-        return $this;
-    }
+    
 }

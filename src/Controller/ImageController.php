@@ -14,7 +14,7 @@ final class ImageController extends AbstractController
     {
         $images = $imageRepository->findAll();
         return $this->render('image/index.html.twig', [
-            'controller_name' => 'ImageController',
+            'images' => $images,
         ]);
     }
 
@@ -22,19 +22,11 @@ final class ImageController extends AbstractController
     public function create(EntityManagerInterface $entityManager): Response 
     {
         $image = new Image();
-        $image->setName('');
-        $image->setDescription('');
+        $image->setUrl("");
 
         $entityManager->persist($image);
         $entityManager->flush();
 
         return new Response("L'image a bien été créée");
-    }
-
-    public function findAll():Response
-    {
-        return $this->render('image/findAll.html.twig', [
-            'controller_name' => 'ImageController',
-        ]);
     }
 }

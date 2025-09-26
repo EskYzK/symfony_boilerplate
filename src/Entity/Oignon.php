@@ -8,49 +8,17 @@ use Doctrine\ORM\Mapping as ORM;
 #[ORM\Entity(repositoryClass: OignonRepository::class)]
 class Oignon
 {
-    #[ORM\Id]
-    #[ORM\GeneratedValue]
-    #[ORM\Column]
-    private ?int $id = null;
-
     #[ORM\Column(length: 255)]
-    private ?string $url = null;
+    private ?string $name = null;
 
-    #[ORM\Column(length: 255)]
-    private ?string $altText = null;
-
-    public function getId(): ?int
+    public function getName(): ?string
     {
-        return $this->id;
+        return $this->name;
     }
 
-    public function setId(int $id): static
+    public function setName(string $name): static
     {
-        $this->id = $id;
-
-        return $this;
-    }
-
-    public function getUrl(): ?string
-    {
-        return $this->url;
-    }
-
-    public function setUrl(string $url): static
-    {
-        $this->url = $url;
-
-        return $this;
-    }
-
-    public function getAltText(): ?string
-    {
-        return $this->altText;
-    }
-
-    public function setAltText(string $altText): static
-    {
-        $this->altText = $altText;
+        $this->name = $name;
 
         return $this;
     }

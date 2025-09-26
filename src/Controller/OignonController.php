@@ -14,14 +14,7 @@ final class OignonController extends AbstractController
     {
         $oignons = $oignonRepository->findAll();
         return $this->render('oignon/index.html.twig', [
-            'controller_name' => 'OignonController',
-        ]);
-    }
-
-    public function findAll():Response
-    {
-        return $this->render('oignon/findAll.html.twig', [
-            'controller_name' => 'OignonController',
+            'oignons' => $oignons
         ]);
     }
 

@@ -14,7 +14,7 @@ final class SauceController extends AbstractController
     {
         $sauces = $sauceRepository->findAll();
         return $this->render('sauce/index.html.twig', [
-            'controller_name' => 'SauceController',
+            'sauce' => $sauces,
         ]);
     }
 
