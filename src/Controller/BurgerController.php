@@ -68,12 +68,12 @@ class BurgerController extends AbstractController
         ]);
     }
 
-    #[Route('/burgers', name: 'burger_index')]
+    #[Route('/burger', name: 'burger_index')]
     public function index(BurgerRepository $burgerRepository): Response
     {
         $burgers = $burgerRepository->findAll();
         return $this->render('burger/index.html.twig', [
-            'burgers' => $burgers,
+            'burger' => $burgers,
         ]);
     }
 
