@@ -8,17 +8,27 @@ use Doctrine\ORM\Mapping as ORM;
 #[ORM\Entity(repositoryClass: ImageRepository::class)]
 class Image
 {
-    #[ORM\Column(length: 255)]
-    private ?string $url = null;
+    #[ORM\Id]
+    #[ORM\GeneratedValue]
+    #[ORM\Column]
+    private ?int $id = null;
 
-    public function getUrl(): ?string
+    #[ORM\Column(length: 255)]
+    private ?string $path = null;
+
+    public function getId(): ?int
     {
-        return $this->url;
+        return $this->id;
     }
 
-    public function setUrl(string $url): static
+    public function getPath(): ?string
     {
-        $this->url = $url;
+        return $this->path;
+    }
+
+    public function setPath(string $path): static
+    {
+        $this->path = $path;
 
         return $this;
     }

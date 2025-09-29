@@ -18,20 +18,26 @@ class BurgerController extends AbstractController
                 'id' => 1,
                 'name' => 'Cheeseburger',
                 'description' => "Un burger",
+                'price' => 8.99,
+                'image' => 'cb.jpg'
             ],
             [
                 'id' => 2,
                 'name' => 'Bacon Burger',
                 'description' => "Miam",
+                'price' => 10.99,
+                'image' => 'bb.jpg'
             ],
             [
                 'id' => 3,
                 'name' => 'Veggie Burger',
                 'description' => "Cool",
+                'price' => 9.99,
+                'image' => 'vb.jpg'
             ],
         ];
  
-        return $this->render('burger/burgers_list.html.twig', [
+        return $this->render('burgers_list.html.twig', [
             'burgers' => $burgers,
         ]);
     }
@@ -44,19 +50,19 @@ class BurgerController extends AbstractController
                 'name' => 'Cheeseburger',
                 'description' => 'Un délicieux cheeseburger avec du cheddar fondant.',
                 'price' => 5.99,
-                'image' => 'burger.jpg'
+                'image' => 'cb.jpg'
             ],
             2 => [
                 'name' => 'Bacon Burger',
                 'description' => 'Burger avec bacon croustillant et sauce BBQ.',
                 'price' => 6.99,
-                'image' => 'burger.jpg'
+                'image' => 'bb.jpg'
             ],
             3 => [
                 'name' => 'Veggie Burger',
                 'description' => 'Burger végétarien avec galette de légumes maison.',
                 'price' => 5.49,
-                'image' => 'burger.jpg'
+                'image' => 'vb.jpg'
             ]
         ];
 
