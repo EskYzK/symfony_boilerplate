@@ -2,8 +2,10 @@
 
 namespace App\Entity;
 
-use App\Repository\SauceRepository;
 use Doctrine\ORM\Mapping as ORM;
+use App\Repository\SauceRepository;
+use Doctrine\Common\Collections\Collection;
+use Doctrine\Common\Collections\ArrayCollection;
 
 #[ORM\Entity(repositoryClass: SauceRepository::class)]
 class Sauce
@@ -14,36 +16,56 @@ class Sauce
     private ?int $id = null;
 
     #[ORM\Column(length: 255)]
-    private ?string $name = null;
+    private ?string $nom = null;
 
-    #[ORM\Column(length: 255)]
-    private ?string $description = null;
+    #[ORM\ManyToMany(targetEntity: Burger::class, mappedBy: 'sauce')]
+    private Collection $burgers;
 
+    public function __construct()
+    {
+        $this->burgers = new ArrayCollection();
+    }
+    
     public function getId(): ?int
     {
         return $this->id;
     }
 
-    public function getName(): ?string
+    public function getNom(): ?string
     {
-        return $this->name;
+        return $this->nom;
     }
 
-    public function setName(string $name): static
+    public function setNom(string $nom): static
     {
-        $this->name = $name;
+        $this->nom = $nom;
 
         return $this;
     }
 
-    public function getDescription(): ?string
+    /**
+     * @return Collection<int, Burger>
+     */
+    public function getBurgers(): Collection
     {
-        return $this->description;
+        return $this->burgers;
     }
 
-    public function setDescription(string $description): static
+    public function addBurger(Burger $burger): static
     {
-        $this->description = $description;
+        if (!$this->burgers->contains($burger)) {
+            $this->burgers->add($burger);
+            $burger->addSauce($this);
+        }
+
+        return $this;
+    }
+
+    public function removeBurger(Burger $burger): static
+    {
+        if ($this->burgers->removeElement($burger)) {
+            $burger->removeSauce($this);
+        }
 
         return $this;
     }

@@ -3,6 +3,8 @@
 namespace App\Entity;
 
 use App\Repository\BurgerRepository;
+use Doctrine\Common\Collections\ArrayCollection;
+use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
 
 #[ORM\Entity(repositoryClass: BurgerRepository::class)]
@@ -14,87 +16,170 @@ class Burger
     private ?int $id = null;
 
     #[ORM\Column(length: 255)]
-    private ?string $url = null;
+    private ?string $nom = null;
 
-    #[ORM\Column(length: 255)]
-    private ?string $altText = null;
+    /**
+     * @var Collection<int, Commentaire>
+     */
+    #[ORM\OneToMany(targetEntity: Commentaire::class, mappedBy: 'burger')]
+    private Collection $commentaires;
+
+    #[ORM\ManyToOne]
+    private ?Pain $pain = null;
+
+    /**
+     * @var Collection<int, Oignon>
+     */
+    #[ORM\ManyToMany(targetEntity: Oignon::class)]
+    private Collection $oignon;
+
+    /**
+     * @var Collection<int, Sauce>
+     */
+    #[ORM\ManyToMany(targetEntity: Sauce::class)]
+    private Collection $sauce;
+
+    #[ORM\OneToOne(cascade: ['persist', 'remove'])]
+    private ?Image $image = null;
 
     #[ORM\Column]
-    private ?int $price = null;
+    private ?float $prix = null;
 
-    #[ORM\Column(length: 255)]
-    private ?string $name = null;
+    public function __construct()
+    {
+        $this->commentaires = new ArrayCollection();
+        $this->oignon = new ArrayCollection();
+        $this->sauce = new ArrayCollection();
+    }
 
     public function getId(): ?int
     {
         return $this->id;
     }
 
-    public function setId(int $id): static
+    public function getNom(): ?string
     {
-        $this->id = $id;
+        return $this->nom;
+    }
+
+    public function setNom(string $nom): static
+    {
+        $this->nom = $nom;
 
         return $this;
     }
 
-    public function getUrl(): ?string
+    /**
+     * @return Collection<int, Commentaire>
+     */
+    public function getCommentaires(): Collection
     {
-        return $this->url;
+        return $this->commentaires;
     }
 
-    public function setUrl(string $url): static
+    public function addCommentaire(Commentaire $commentaire): static
     {
-        $this->url = $url;
+        if (!$this->commentaires->contains($commentaire)) {
+            $this->commentaires->add($commentaire);
+            $commentaire->setBurger($this);
+        }
 
         return $this;
     }
 
-    public function getAltText(): ?string
+    public function removeCommentaire(Commentaire $commentaire): static
     {
-        return $this->altText;
-    }
-
-    public function setAltText(string $altText): static
-    {
-        $this->altText = $altText;
+        if ($this->commentaires->removeElement($commentaire)) {
+            // set the owning side to null (unless already changed)
+            if ($commentaire->getBurger() === $this) {
+                $commentaire->setBurger(null);
+            }
+        }
 
         return $this;
     }
 
-    public function getPrice(): ?int
+    public function getPain(): ?Pain
     {
-        return $this->price;
+        return $this->pain;
     }
 
-    public function setPrice(int $price): static
+    public function setPain(?Pain $pain): static
     {
-        $this->price = $price;
+        $this->pain = $pain;
 
         return $this;
     }
 
-    public function getName(): ?string
+    /**
+     * @return Collection<int, Oignon>
+     */
+    public function getOignon(): Collection
     {
-        return $this->name;
+        return $this->oignon;
     }
 
-    public function setName(string $name): static
+    public function addOignon(Oignon $oignon): static
     {
-        $this->name = $name;
+        if (!$this->oignon->contains($oignon)) {
+            $this->oignon->add($oignon);
+        }
 
         return $this;
     }
 
-    #[ORM\ManyToOne(targetEntity: Pain::class)]
-    #[ORM\JoinColumn(nullable: false)]
-    private $pain;
+    public function removeOignon(Oignon $oignon): static
+    {
+        $this->oignon->removeElement($oignon);
 
-    #[ORM\ManyToMany(targetEntity: Oignon::class)]
-    private $oignon;
+        return $this;
+    }
 
-    #[ORM\ManyToMany(targetEntity: Sauce::class)]
-    private $sauce;
+    /**
+     * @return Collection<int, Sauce>
+     */
+    public function getSauce(): Collection
+    {
+        return $this->sauce;
+    }
 
-    #[ORM\OneToOne(cascade: ['persist', 'remove'])]
-    private ?Image $image = null;
+    public function addSauce(Sauce $sauce): static
+    {
+        if (!$this->sauce->contains($sauce)) {
+            $this->sauce->add($sauce);
+        }
+
+        return $this;
+    }
+
+    public function removeSauce(Sauce $sauce): static
+    {
+        $this->sauce->removeElement($sauce);
+
+        return $this;
+    }
+
+    public function getImage(): ?Image
+    {
+        return $this->image;
+    }
+
+    public function setImage(?Image $image): static
+    {
+        $this->image = $image;
+
+        return $this;
+    }
+
+    public function getPrix(): ?float
+    {
+        return $this->prix;
+    }
+
+    public function setPrix(float $prix): static
+    {
+        $this->prix = $prix;
+
+        return $this;
+    }
 }

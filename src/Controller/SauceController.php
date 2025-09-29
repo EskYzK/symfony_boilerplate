@@ -30,11 +30,4 @@ final class SauceController extends AbstractController
 
         return new Response('La sauce a bien été créée !');
     }
-
-    public function findAll():Response
-    {
-        return $this->render('sauce/findAll.html.twig', [
-            'controller_name' => 'SauceController',
-        ]);
-    }
 }

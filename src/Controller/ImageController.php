@@ -17,16 +17,4 @@ final class ImageController extends AbstractController
             'images' => $images,
         ]);
     }
-
-    #[Route('/image/create', name: 'image_create')]
-    public function create(EntityManagerInterface $entityManager): Response 
-    {
-        $image = new Image();
-        $image->setUrl("");
-
-        $entityManager->persist($image);
-        $entityManager->flush();
-
-        return new Response("L'image a bien été créée");
-    }
 }

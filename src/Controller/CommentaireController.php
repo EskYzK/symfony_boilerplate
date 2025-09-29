@@ -18,7 +18,7 @@ final class CommentaireController extends AbstractController
         ]);
     }
 
-    #[Route('/commentaire/create', name: 'commentairee_create')]
+    #[Route('/commentaire/create', name: 'commentaire_create')]
     public function create(EntityManagerInterface $entityManager): Response 
     {
         $commentaire = new commentaire();

@@ -28,7 +28,7 @@ class Image extends Fixture implements DependentFixtureInterface
             for ($i = 0; $i < $nbImages; $i++) {
                 $image = new Image();
                 $url = $images[array_rand($images)];
-                $image->setUrl($url);
+                $image->setPath($url);
                 $image->setAlt('Image de ' . $burger->getName());
                 $image->setBurger($burger);
 

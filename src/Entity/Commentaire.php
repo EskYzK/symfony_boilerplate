@@ -14,43 +14,49 @@ class Commentaire
     private ?int $id = null;
 
     #[ORM\Column(length: 255)]
-    private ?string $commentaire = null;
+    private ?string $texte = null;
 
+    #[ORM\Column(nullable: true)]
+    private ?int $note = null;
+
+    #[ORM\ManyToOne(inversedBy: 'commentaires')]
+    private ?Burger $burger = null;
 
     public function getId(): ?int
     {
         return $this->id;
     }
 
-    public function setId(int $id): static
+    public function getTexte(): ?string
     {
-        $this->id = $id;
+        return $this->texte;
+    }
+
+    public function setTexte(string $texte): static
+    {
+        $this->texte = $texte;
 
         return $this;
     }
 
-    public function getCommentaire(): ?string
+    public function getNote(): ?int
     {
-        return $this->commentaire;
+        return $this->note;
     }
 
-    public function setCommentaire(string $commentaire): static
+    public function setNote(?int $note): static
     {
-        $this->commentaire = $commentaire;
+        $this->note = $note;
 
         return $this;
     }
-
-
-    #[ORM\ManyToOne(targetEntity: Burger::class)]
-    private $burger;
 
     public function getBurger(): ?Burger
     {
         return $this->burger;
     }
 
-    public function setBurger(Burger $burger): static
+    public function setBurger(?Burger $burger): static
     {
         $this->burger = $burger;
 
