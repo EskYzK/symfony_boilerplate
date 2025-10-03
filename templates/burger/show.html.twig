@@ -41,18 +41,6 @@
                         <span>Aucune sauce.</span>
                     {% endif %}
                 </li>
-                <li>
-                    <strong>Fromages :</strong>
-                    {% if burger.fromages is not empty %}
-                        <ul>
-                            {% for fromage in burger.fromages %}
-                                <li>{{ fromage.name }}</li>
-                            {% endfor %}
-                        </ul>
-                    {% else %}
-                        <span>Aucun fromage.</span>
-                    {% endif %}
-                </li>
             </ul>
         </div>
 

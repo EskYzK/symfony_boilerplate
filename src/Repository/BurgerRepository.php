@@ -34,9 +34,7 @@ class BurgerRepository extends ServiceEntityRepository
             ->leftJoin('b.oignons', 'o')
             ->addSelect('o')
             ->leftJoin('b.sauces', 's')
-            ->addSelect('s')
-            ->leftJoin('b.fromages', 'f')
-            ->addSelect('f');
+            ->addSelect('s');
     }
 
     public function findBurgerWithDetails(int $id): ?Burger
