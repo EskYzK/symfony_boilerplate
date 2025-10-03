@@ -7,7 +7,6 @@ use App\Entity\Image;
 use App\Entity\Pain;
 use App\Entity\Oignon;
 use App\Entity\Sauce;
-use App\Entity\Fromage;
 use App\Entity\Commentaire;
 use Doctrine\Bundle\FixturesBundle\Fixture;
 use Doctrine\Persistence\ObjectManager;
@@ -31,9 +30,6 @@ class AppFixtures extends Fixture implements DependentFixtureInterface
         $mayonnaise = $manager->getRepository(Sauce::class)->findOneBy(['name' => 'Mayonnaise']);
         $moutarde = $manager->getRepository(Sauce::class)->findOneBy(['name' => 'Moutarde']);
 
-        // Récupérer les fromages
-        $cheddar = $manager->getRepository(Fromage::class)->findOneBy(['name' => 'Cheddar']);
-
         // Images
         $cheeseburgerImage = (new Image())->setPath('img/cheeseburger.jpg');
         $manager->persist($cheeseburgerImage);
@@ -52,13 +48,12 @@ class AppFixtures extends Fixture implements DependentFixtureInterface
         $cheeseburger = new Burger();
         $cheeseburger->setName('Cheeseburger');
         $cheeseburger->setPrice(8.99);
-        $cheeseburger->setDescription('Un classique américain avec son steak, son fromage fondant, ses cornichons et son ketchup.');
+        $cheeseburger->setDescription('Un classique américain avec son steak, ses cornichons et son ketchup.');
         $cheeseburger->setPain($painNormal);
         $cheeseburger->setImage($cheeseburgerImage);
         $cheeseburger->addOignon($oignonBlanc);
         $cheeseburger->addOignon($oignonFrit);
         $cheeseburger->addSauce($ketchup);
-        $cheeseburger->addFromage($cheddar);
         $manager->persist($cheeseburger);
 
         $baconBurger = new Burger();
@@ -116,7 +111,6 @@ class AppFixtures extends Fixture implements DependentFixtureInterface
             PainFixtures::class,
             OignonFixtures::class,
             SauceFixtures::class,
-            FromageFixtures::class,
         ];
     }
 }
